@@ -1,4 +1,5 @@
 import time
+import os
 import logging
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
@@ -31,6 +32,14 @@ def start_watching(path_to_watch):
     event_handler = DirectoryWatcher(organizer)
     observer = Observer()
     observer.schedule(event_handler, path_to_watch, recursive=False)
+    
+    # Scan existing files first
+    logging.info(f"Scanning existing files in: {path_to_watch}")
+    for item in os.listdir(path_to_watch):
+        full_path = os.path.join(path_to_watch, item)
+        if os.path.isfile(full_path):
+            organizer.organize_file(full_path)
+            
     observer.start()
     
     logging.info(f"CleanSweep started. Watching: {path_to_watch}")

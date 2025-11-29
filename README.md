@@ -8,10 +8,20 @@
 ## ✨ Features
 
 *   **Real-Time Monitoring**: Uses `watchdog` to detect file creation instantly.
-*   **Smart Sorting**: Automatically moves files into `Images`, `Documents`, `Audio`, `Video`, `Archives`, and `Installers`.
-*   **Safety First**: Never overwrites files. If a duplicate exists, it renames the new file (e.g., `image_1.png`).
+*   **System Integration**: Sorts files directly into your system folders (`Documents`, `Pictures`, `Music`, etc.).
+*   **Duplicate Safety**: Moves duplicate files to a `Copies` folder instead of overwriting or renaming.
+*   **Undo Functionality**: Made a mistake? Run with `--undo` to reverse the last action.
 *   **Configurable**: Customize your own sorting rules via `config.json`.
 *   **Lightweight**: Runs silently in the background with minimal resource usage.
+
+## 💡 Why I Built This
+
+I noticed that my `Downloads` folder was constantly becoming a graveyard of unorganized files. I wanted a solution that was:
+1.  **Automatic**: No manual drag-and-drop.
+2.  **Smart**: Puts files where they *actually* belong (System Folders).
+3.  **Safe**: Never deletes or overwrites anything.
+
+CleanSweep solves this by acting as a silent housekeeper for your PC.
 
 ## 🚀 Installation
 
@@ -28,13 +38,19 @@
 
 ## 💻 Usage
 
+### 1. Start Cleaning
 Run the bot by specifying the folder you want to keep clean:
 
 ```bash
 python main.py "C:\Users\YourName\Downloads"
 ```
 
-To stop the bot, press `Ctrl+C`.
+### 2. Undo a Mistake
+If a file was moved by mistake, you can undo the last action:
+
+```bash
+python main.py --undo
+```
 
 ## ⚙️ Configuration
 
@@ -67,7 +83,8 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 *   [ ] Add support for custom file patterns via UI
 *   [ ] Implement a system tray icon for easy control
-*   [ ] Add "Undo" functionality for last moved files
+*   [x] Add "Undo" functionality for last moved files
+*   [x] Smart duplicate handling (Copies folder)
 *   [ ] Cross-platform support (macOS/Linux) improvements
 
 ## 📄 License

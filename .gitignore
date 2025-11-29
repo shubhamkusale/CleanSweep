@@ -35,3 +35,4 @@ ENV/
 
 # CleanSweep specific
 test_zone/
+undo_log.json
