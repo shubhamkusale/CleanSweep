@@ -83,6 +83,19 @@ class FileOrganizer:
         except Exception as e:
             print(f"Error during undo: {e}")
 
+    def get_unique_filename(self, destination, filename):
+        """
+        Generates a unique filename if the file already exists in destination.
+        Example: image.png -> image_1.png
+        """
+        base, ext = os.path.splitext(filename)
+        counter = 1
+        new_filename = filename
+        while os.path.exists(os.path.join(destination, new_filename)):
+            new_filename = f"{base}_{counter}{ext}"
+            counter += 1
+        return new_filename
+
     def organize_file(self, file_path):
         path = Path(file_path)
         if not path.exists() or path.is_dir():
@@ -101,7 +114,11 @@ class FileOrganizer:
             if destination_path.exists():
                 copies_dir = path.parent / "Copies"
                 copies_dir.mkdir(exist_ok=True)
-                destination_path = copies_dir / path.name
+                
+                # Ensure unique name in Copies folder
+                unique_name = self.get_unique_filename(copies_dir, path.name)
+                destination_path = copies_dir / unique_name
+                
                 self.logger.info(f"Duplicate found. Moving to: {destination_path}")
 
             shutil.move(str(path), str(destination_path))
